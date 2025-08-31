@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>Netiza | Automatización y Diseño Web para Pymes en Mercedes</title>
+    <meta name="description" content="Liberamos tu tiempo automatizando tu negocio. Soluciones tecnológicas simples y locales para que te dediques a crecer. Pedí tu diagnóstico gratuito.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://placehold.co/32x32/FF0055/FFFFFF?text=N" type="image/png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;800&display=swap" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #F1F3E7;
+        }
+        /* Titulos en ExtraBold (peso 800) */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 800;
+        }
+        p, a, span, li, blockquote {
+            font-weight: 500; /* Medium weight */
+        }
+        .font-regular {
+            font-weight: 400; /* Regular weight */
+        }
+        .horizontal-scroll-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .horizontal-scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+        .horizontal-scroll-container > * {
+            scroll-snap-align: start;
+            flex-shrink: 0;
+        }
+        /* Drawer Styles */
+        #assistantDrawer {
+            transition: opacity 0.3s ease-in-out;
+        }
+        #drawerContent {
+            transition: transform 0.3s ease-in-out;
+            transform: translateY(100%);
+        }
+        @media (min-width: 768px) {
+            #drawerContent {
+                transform: translateX(100%);
+            }
+        }
+        #assistantDrawer.is-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #assistantDrawer.is-open #drawerContent {
+            transform: translateY(0);
+        }
+        @media (min-width: 768px) {
+            #assistantDrawer.is-open #drawerContent {
+                transform: translateX(0);
+            }
+        }
+        .chat-bubble {
+            animation: pop-in 0.3s ease-out forwards;
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        @keyframes pop-in {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        #top-banner {
+            transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+            max-height: 100px; /* Altura suficiente para el contenido */
+            overflow: hidden;
+        }
+        #top-banner.banner-hidden {
+            max-height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+    </style>
+    
+    <!-- Schema.org Markup for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Netiza",
+      "image": "https://placehold.co/600x400/FF0055/FFFFFF?text=Netiza+Logo",
+      "description": "Somos el único socio tecnológico local en la región de Mercedes que no solo crea tu presencia digital, sino que automatiza tus procesos de negocio para devolverte tu tiempo.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Mercedes",
+        "addressRegion": "Buenos Aires",
+        "addressCountry": "AR"
+      },
+      "telephone": "+5492324533126",
+      "email": "hola@netiza.com",
+      "url": "https://www.netiza.com",
+      "priceRange": "$$",
+      "makesOffer": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Automatización de Negocios" }},
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Diseño y Desarrollo Web" }},
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Diagnóstico de Eficiencia Digital Gratuito" }}
+      ]
+    }
+    </script>
+
+</head>
+<body class="bg-[#F1F3E7] text-[#111111]">
+
+    <!-- Componente 0: Header y Banner Superior -->
+    <header class="sticky top-0 z-50 bg-[#F1F3E7] shadow-sm">
+        <div id="top-banner" class="bg-[#111111] text-white text-center p-2 text-sm font-medium flex items-center justify-center space-x-4">
+            <span>¿Querés tu asistente digital para WhatsApp y Redes?</span>
+            <button id="openAssistantBtn" class="bg-transparent border border-gray-400 text-white px-4 py-1 rounded-full text-xs font-bold hover:bg-white hover:text-[#111111] transition-colors">Probar Demo</button>
+        </div>
+        <nav class="container mx-auto px-2 md:px-6 py-4 flex justify-between items-center">
+            <!-- Logo Clicable -->
+            <a href="#" class="block h-4">
+    <svg class="h-full w-auto" width="85" height="16" viewBox="0 0 97 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.56141 17.916V5.22222L11.9915 17.916H15.0809V0.00186467H11.9915V12.6976L3.58623 0.00186467H0.473877V17.916H3.56141Z" fill="black"/>
+        <path d="M36.5466 2.89468H41.7918V17.918H44.9289V2.89468H50.1741V0.00191128H36.5485V2.89468H36.5466ZM32.0633 17.9161V15.0233H24.0743V10.2689H31.2308V7.5002H24.0743V2.89277H32.0633V0H20.9371V17.9142H32.0633V17.9161Z" fill="black"/>
+        <path d="M87.7665 5.34446C87.9383 4.85374 88.0854 4.31528 88.1579 3.97159C88.2076 4.34011 88.3794 4.87856 88.5264 5.34446L90.5848 11.1281H85.7329L87.7665 5.34446ZM83.3538 17.9161L84.7992 13.7745H91.4898L92.9353 17.9161H96.2443L89.7752 0.00191128H86.5655L80.0963 17.9161H83.3557H83.3538ZM76.6403 17.9161V15.0233H67.5725L76.4933 2.79348V0H63.9465V2.89277H72.5981L63.7517 14.9985V17.9142H76.6422L76.6403 17.9161Z" fill="black"/>
+        <path d="M58.2604 0.0762649H55.2703V11.9872H58.2604V0.0762649ZM56.7653 14.3721C55.7858 14.3721 54.9762 15.1683 54.9762 16.1555C54.9762 17.1426 55.7858 17.916 56.7653 17.916C57.7945 17.916 58.6041 17.1446 58.6041 16.1555C58.6041 15.1664 57.7945 14.3721 56.7653 14.3721Z" fill="black"/>
+        <path d="M56.7902 18C57.792 18 58.6041 17.1879 58.6041 16.1861C58.6041 15.1842 57.792 14.3721 56.7902 14.3721C55.7884 14.3721 54.9762 15.1842 54.9762 16.1861C54.9762 17.1879 55.7884 18 56.7902 18Z" fill="#DBE21A"/>
+    </svg>
+</a>
+            
+            <!-- Contacto por WhatsApp -->
+            <a href="https://wa.me/5492324533126?text=¡Hola%20Netiza!%20Tengo%20una%20consulta." 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="flex items-center space-x-2 text-sm font-bold text-gray-700 hover:text-black transition-colors">
+                <span>Hablemos por WhatsApp</span>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l-1.317 4.816 4.917-1.286z"/></svg>
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Componente 1: Hero Section con Video -->
+        <section class="bg-[#FF0055] text-white">
+            <div class="container mx-auto flex flex-col lg:flex-row lg:items-stretch">
+                <!-- Columna de Texto -->
+                <div class="w-full lg:w-1/2 text-center lg:text-left flex flex-col justify-center p-8 md:p-12">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl leading-tight mb-4 font-bold">Recuperá tu recurso más valioso: el tiempo.</h1>
+                    <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto lg:mx-0"> Creamos el sistema digital que tu negocio necesita para atraer más clientes y darte más libertad. Simple, local y confiable. ¿Querés saber por dónde empezar? Te lo hacemos fácil.</p>
+                    <a href="https://wa.me/5492324533126?text=¡Hola%20Netiza!%20Vi%20su%20web%20y%20me%20gustaría%20solicitar%20mi%20Diagnóstico%20Gratuito." target="_blank" rel="noopener noreferrer" id="main-cta-hero" class="inline-block bg-[#DBE21A] text-[#111111] px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform duration-300 self-center lg:self-start">
+                        Quiero mi diagnóstico gratuito
+                    </a>
+                </div>
+                <!-- Columna de Video -->
+                                                <div class="w-full lg:w-1/2 h-[580px]">
+                     <video class="w-full h-full object-cover" 
+                            autoplay 
+                            loop 
+                            muted 
+                            playsinline 
+                            poster="https://images.pexels.com/photos/3254011/pexels-photo-3254011.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2">
+                        <source src="images/netiza-movie.mp4" type="video/mp4">
+                        Tu navegador no soporta el tag de video.
+                    </video>
+                </div>
+            </div>
+        </section>
+
+        <!-- Componente 2: Sección "El Problema" con Carrusel Intercalado -->
+        <section class="bg-[#F1F3E7] py-16 md:py-24 m-auto">
+            <div class="container mx-auto px-2 md:px-6"><h2 class="text-2xl md:text-3xl text-center mb-10 font-bold">¿Tu día a día se siente así?</h2></div>
+            <div class="horizontal-scroll-container">
+                <!-- Card 1: Estilo 1 (Texto sobre imagen) -->
+                <article class="w-[250px] aspect-[2/3] mr-2 relative rounded-xl overflow-hidden">
+                    <img src="images/mismos-mensajes2.jpeg" alt="Persona abrumada con muchas notas adhesivas." class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-4">
+                        <p class="text-white text-lg font-regular">"Paso horas respondiendo los mismos mensajes y agendando citas manualmente."</p>
+                    </div>
+                </article>
+                <!-- Card 2: Estilo 2 (Texto arriba, imagen abajo) -->
+                <article class="w-[250px] aspect-[2/3] mr-2 flex flex-col bg-[#DFE2D2] rounded-xl overflow-hidden">
+                    <div class="h-1/3 flex items-center p-4">
+                        <p class="text-lg text-gray-700 font-regular">"Gestionando reservas y turnos en un cuaderno."</p>
+                    </div>
+                    <div class="h-2/3">
+                        <img src="images/cuaderno-emprendedor.jpg" alt="Escritorio desordenado con papeles y facturas." class="w-full h-full object-cover">
+                    </div>
+                </article>
+                <!-- Card 3: Estilo 1 -->
+                <article class="w-[250px] aspect-[2/3] mr-2 relative rounded-xl overflow-hidden">
+                    <img src="images/mensajes-emprendedor.jpg" alt="Persona frustrada mirando una computadora." class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-4">
+                        <p class="text-white text-lg font-regular">"Se me escapan ventas por no hacer seguimiento a tiempo."</p>
+                    </div>
+                </article>
+                <!-- Card 4: Estilo 2 -->
+                <article class="w-[250px] aspect-[2/3] mr-2 flex flex-col bg-[#DFE2D2] rounded-xl overflow-hidden">
+                     <div class="h-1/3 flex items-center p-4">
+                        <p class="text-lg text-gray-700 font-regular">"Sé que tengo que estar en redes, pero nunca sé qué publicar."</p>
+                    </div>
+                    <div class="h-2/3">
+                        <img src="images/apagar-incendios.jpg" alt="Reloj con muchas alarmas." class="w-full h-full object-cover">
+                    </div>
+                </article>
+                <!-- Card 5: Estilo 1 -->
+                 <article class="w-[250px] aspect-[2/3] mr-2 relative rounded-xl overflow-hidden">
+                    <img src="images/incendios-emprendedor.jpg" alt="Persona preocupada por no atraer clientes." class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-4">
+                        <p class="text-white text-lg font-regular">"Mi negocio es genial, pero nadie me encuentra online."</p>
+                    </div>
+                </article>
+                <!-- Card 6: Estilo 2 (Nueva) -->
+                <article class="w-[250px] aspect-[2/3] mr-2 flex flex-col bg-[#DFE2D2] rounded-xl overflow-hidden">
+                    <div class="h-1/3 flex items-center p-4">
+                        <p class="text-lg text-gray-700 font-regular">"Me cuesta mostrar online todo el valor de lo que hago."</p>
+                    </div>
+                    <div class="h-2/3">
+                        <img src="images/haciendo-mas.jpg" alt="Persona mirando gráficos de crecimiento." class="w-full h-full object-cover">
+                    </div>
+                </article>
+                 <!-- Card 5: Estilo 1 -->
+                 <article class="w-[250px] aspect-[2/3] mr-2 relative rounded-xl overflow-hidden">
+                    <img src="images/respondiendo-emprendedor.jpg" alt="Persona preocupada por no atraer clientes." class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black bg-opacity-30 flex flex-col justify-end p-4">
+                        <p class="text-white text-lg font-regular">"Estoy estancada, haciendo siempre las mismas tareas operativas."</p>
+                    </div>
+                </article>
+                 <!-- Card 6: Estilo 2 (Nueva) -->
+                <article class="w-[250px] aspect-[2/3] mr-2 flex flex-col bg-[#DFE2D2] rounded-xl overflow-hidden">
+                    <div class="h-1/3 flex items-center p-4">
+                        <p class="text-lg text-gray-700 font-regular">"La tecnología parece más un problema que una solución."</p>
+                    </div>
+                    <div class="h-2/3">
+                        <img src="images/tecnologia-problema.jpg" alt="Persona mirando gráficos de crecimiento." class="w-full h-full object-cover">
+                    </div>
+                </article>
+             
+                 
+            </div>
+        </section>
+
+        <!-- Componente 3: Sección "El Plan" -->
+        <section class="bg-[#EAECE1] py-16 md:py-24">
+            <div class="container mx-auto px-2 md:px-6"><div class="container mx-auto px-2 md:px-6"><div class="container mx-auto px-2 md:px-6"><div class="container mx-auto px-2 md:px-6"><h2 class="text-2xl md:text-3xl text-center mb-10 font-bold">Soluciones para construir, crecer y optimizar tu negocio</h2></div></div></div></div>
+            <div class="horizontal-scroll-container">
+                <!-- Card 1 -->
+                <a href="#diagnostico" class="block w-[66%] md:w-[24%] lg:w-[19%] mr-2 bg-[#DFE2D2] p-3 rounded-xl hover:bg-opacity-80 transition-colors duration-300">
+                    <img src="images/presencia-digital.jpeg" alt="Una página web profesional mostrada en un monitor." class="w-full h-48 object-cover rounded-xl mb-4" loading="lazy">
+                    <h3 class="text-lg mb-1">Presencia Digital</h3>
+                    <p class="text-sm text-gray-700 pb-3">Creamos tu vidriera al mundo: una web profesional que te represente y atraiga clientes.</p>
+                </a>
+                <!-- Card 2 -->
+                <a href="#diagnostico" class="block w-[66%] md:w-[24%] lg:w-[19%] mr-2 bg-[#DFE2D2] p-3 rounded-xl hover:bg-opacity-80 transition-colors duration-300">
+                    <img src="images/tiempo-libertad.png" alt="Gráficos y datos de negocio en una tablet." class="w-full h-48 object-cover rounded-xl mb-4" loading="lazy">
+                    <h3 class="text-lg mb-1">Eficiencia Total</h3>
+                    <p class="text-sm text-gray-700 pb-3">Ponemos tu operación en piloto automático para que recuperes tu día a día.</p>
+                </a>
+                <!-- Card 3 -->
+                <a href="#diagnostico" class="block w-[66%] md:w-[24%] lg:w-[19%] mr-2 bg-[#DFE2D2] p-3 rounded-xl hover:bg-opacity-80 transition-colors duration-300">
+                    <img src="images/motor-negocio.png" alt="Equipo de trabajo colaborando y creciendo." class="w-full h-48 object-cover rounded-xl mb-4" loading="lazy">
+                    <h3 class="text-lg mb-1">Motor de Negocio y Marketing</h3>
+                    <p class="text-sm text-gray-700 pb-3">Tu negocio abierto 24/7, con una estrategia para atraer clientes y vender online.</p>
+                </a>
+                <!-- Card 4 -->
+                <a href="#diagnostico" class="block w-[66%] md:w-[24%] lg:w-[19%] mr-2 bg-[#DFE2D2] p-3 rounded-xl hover:bg-opacity-80 transition-colors duration-300">
+                    <img src="images/vidriera-digital.png" alt="Personas en una reunión de estrategia." class="w-full h-48 object-cover rounded-xl mb-4" loading="lazy">
+                    <h3 class="text-lg mb-1">Tu Vidriera Digital</h3>
+                    <p class="text-sm text-gray-700 pb-3">Diseñamos y publicamos tu Landing Page de Alto Impacto en tiempo récord.</p>
+                </a>
+                <!-- Card 5 -->
+                  <a href="#diagnostico" class="block w-[66%] md:w-[24%] lg:w-[19%] mr-2 bg-[#DFE2D2] p-3 rounded-xl hover:bg-opacity-80 transition-colors duration-300">
+                    <img src="images/aparece-google.png" alt="Publicidad en redes sociales en un teléfono." class="w-full h-48 object-cover rounded-xl mb-4" loading="lazy">
+                    <h3 class="text-lg mb-1">Aparecé en Google</h3>
+                    <p class="text-sm text-gray-700 pb-3">Optimizamos tu Perfil de Google Business para que seas la primera opción en las búsquedas locales.</p>
+                </a>
+                <!-- Card 6 -->
+                <a href="#diagnostico" class="block w-[66%] md:w-[24%] lg:w-[19%] mr-2 bg-[#DFE2D2] p-3 rounded-xl hover:bg-opacity-80 transition-colors duration-300">
+                    <img src="images/marca-profesional.png" alt="Persona de soporte técnico ayudando a un cliente." class="w-full h-48 object-cover rounded-xl mb-4" loading="lazy">
+                    <h3 class="text-lg mb-1">Marca Profesional</h3>
+                    <p class="text-sm text-gray-700 pb-3">Creamos tu Identidad Visual (logo y paleta de colores) para que tu marca destaque.</p>
+                </a>
+                 <!-- Card 7 -->
+                   <a href="#diagnostico" class="block w-[66%] md:w-[24%] lg:w-[19%] mr-2 bg-[#DFE2D2] p-3 rounded-xl hover:bg-opacity-80 transition-colors duration-300">
+                    <img src="images/calendario-inteligengte.png" alt="Publicidad en redes sociales en un teléfono." class="w-full h-48 object-cover rounded-xl mb-4" loading="lazy">
+                    <h3 class="text-lg mb-1">Calendario Inteligente</h3>
+                    <p class="text-sm text-gray-700 pb-3">Creamos un sistema simple para que tus clientes agenden solos y se cargue en tu calendario automáticamente</p>
+                </a>
+               
+                <!-- Card 8 -->
+                <a href="#diagnostico" class="block w-[66%] md:w-[24%] lg:w-[19%] mr-2 bg-[#DFE2D2] p-3 rounded-xl hover:bg-opacity-80 transition-colors duration-300">
+                    <img src="https://images.pexels.com/photos/416405/pexels-photo-416405.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Persona de soporte técnico ayudando a un cliente." class="w-full h-48 object-cover rounded-xl mb-4" loading="lazy">
+                    <h3 class="text-lg mb-1"> Tu Asistente de WhatsApp</h3>
+                    <p class="text-sm text-gray-700 pb-3">Implementamos un chatbot básico que responde las preguntas frecuentes por vos, 24/7.</p>
+                </a>
+                 <!-- Card 9 -->
+                   <a href="#diagnostico" class="block w-[66%] md:w-[24%] lg:w-[19%] mr-2 bg-[#DFE2D2] p-3 rounded-xl hover:bg-opacity-80 transition-colors duration-300">
+                    <img src="https://images.pexels.com/photos/6476808/pexels-photo-6476808.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Publicidad en redes sociales en un teléfono." class="w-full h-48 object-cover rounded-xl mb-4" loading="lazy">
+                    <h3 class="text-lg mb-1">Anuncios que Venden</h3>
+                    <p class="text-sm text-gray-700 pb-3">Diseñamos y lanzamos tu primera campaña de publicidad local en Instagram y Facebook</p>
+                </a>
+               
+                <!-- Card 10 -->
+                <a href="#diagnostico" class="block w-[66%] md:w-[24%] lg:w-[19%] mr-2 bg-[#DFE2D2] p-3 rounded-xl hover:bg-opacity-80 transition-colors duration-300">
+                    <img src="https://images.pexels.com/photos/416405/pexels-photo-416405.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Persona de soporte técnico ayudando a un cliente." class="w-full h-48 object-cover rounded-xl mb-4" loading="lazy">
+                    <h3 class="text-lg mb-1">Contenido para Fiestas</h3>
+                    <p class="text-sm text-gray-700 pb-3">Te entregamos el Kit de Contenido listo para publicar en la próxima fecha importante (Navidad, Día del Padre, etc.).</p>
+                </a>
+                  <!-- Card 11 -->
+               
+                
+                
+            </div>
+        </section>
+
+        <!-- Componente 4: Sección "Prueba Social" -->
+        <section class="bg-[#F1F3E7] py-16 md:py-24 overflow-hidden">
+            <div class="container mx-auto px-2 md:px-6">
+                <h2 class="text-2xl md:text-3xl text-center mb-12 font-bold">Ellos ya encontraron su solución en Netiza</h2>
+            </div>
+            <div class="horizontal-scroll-container m-auto">
+                <img src="images/cliente-emprendedora.jpg" alt="Perfil de cliente: consultora independiente." class="w-[250px] mr-2 rounded-xl object-cover aspect-[2/3]" loading="lazy">
+                <img src="images/cliente-emprendedor.jpg" alt="Perfil de cliente: carniceria local" class="w-[250px] mr-2 rounded-xl object-cover aspect-[2/3]" loading="lazy">
+                <img src="https://images.pexels.com/photos/3777943/pexels-photo-3777943.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&dpr=2" alt="Perfil de cliente: panadero local." class="w-[250px] mr-2 rounded-xl object-cover aspect-[2/3]" loading="lazy">
+                <img src="images/cliente-mariana.jpg" alt="Perfil de cliente: emprendedora." class="w-[250px] mr-2 rounded-xl object-cover aspect-[2/3]" loading="lazy">
+                <img src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&dpr=2" alt="Perfil de cliente: consultora independiente." class="w-[250px] mr-2 rounded-xl object-cover aspect-[2/3]" loading="lazy">
+                <img src="images/cliente-zapatos.jpg" alt="Perfil de cliente: carniceria local" class="w-[250px] mr-2 rounded-xl object-cover aspect-[2/3]" loading="lazy">
+                <img src="images/cliente-sticker.jpg" alt="Perfil de cliente: carniceria local" class="w-[250px] mr-2 rounded-xl object-cover aspect-[2/3]" loading="lazy">
+                <img src="images/cliente-juan.jpg" alt="Perfil de cliente: carniceria local" class="w-[250px] mr-2 rounded-xl object-cover aspect-[2/3]" loading="lazy">
+                <img src="https://images.pexels.com/photos/5490263/pexels-photo-5490263.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&dpr=2" alt="Perfil de cliente: diseñadora de moda." class="w-[250px] mr-2 rounded-xl object-cover aspect-[2/3]" loading="lazy">
+                <img src="https://images.pexels.com/photos/4240505/pexels-photo-4240505.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&dpr=2" alt="Perfil de cliente: entrenador personal." class="w-[250px] mr-2 rounded-xl object-cover aspect-[2/3]" loading="lazy">
+                
+            </div>
+            <!-- Sub-componente 4.2: Carrusel de Testimonios -->
+            <div class="horizontal-scroll-container mt-12">
+                <!-- Testimonial Card 1 -->
+                <div class="w-10/12 md:w-1/2 lg:w-1/3 mr-2 bg-[#DFE2D2] p-8 rounded-xl">
+                    <blockquote class="text-md text-gray-800 italic mb-4">
+                        "No tenía idea del tiempo que perdía hasta que Netiza me mostró cómo automatizar mis turnos. Ahora tengo más clientes y más vida personal. ¡Un antes y un después!"
+                    </blockquote>
+                    <div class="flex items-center">
+                        <img src="https://images.pexels.com/photos/5668858/pexels-photo-5668858.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&dpr=2" alt="Foto de perfil de Laura G." class="w-12 h-12 rounded-full mr-4 object-cover" loading="lazy">
+                        <div>
+                            <p class="font-bold">Laura G.</p>
+                            <p class="text-sm text-gray-600">Flor de Loto - Florería</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial Card 2 -->
+                <div class="w-10/12 md:w-1/2 lg:w-1/3 mr-2 bg-[#DFE2D2] p-8 rounded-xl">
+                    <blockquote class="text-md text-gray-800 italic mb-4">
+                        "Pensé que la tecnología no era para mí. El equipo de Netiza me lo hizo súper simple. Mi nueva web es hermosa y por fin mis clientes me encuentran fácil en Google."
+                    </blockquote>
+                    <div class="flex items-center">
+                        <img src="https://images.pexels.com/photos/3777943/pexels-photo-3777943.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&dpr=2" alt="Foto de perfil de Carlos M." class="w-12 h-12 rounded-full mr-4 object-cover" loading="lazy">
+                        <div>
+                            <p class="font-bold">Carlos M.</p>
+                            <p class="text-sm text-gray-600">El Horno de Carlitos - Panadería</p>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Testimonial Card 3 -->
+                <div class="w-10/12 md:w-1/2 lg:w-1/3 mr-2 bg-[#DFE2D2] p-8 rounded-xl">
+                    <blockquote class="text-md text-gray-800 italic mb-4">
+                        "Lo mejor es que son locales. Les mando un WhatsApp y me responden al toque. Siento que entienden mi negocio y los problemas que tengo."
+                    </blockquote>
+                    <div class="flex items-center">
+                        <img src="https://images.pexels.com/photos/3220617/pexels-photo-3220617.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&dpr=2" alt="Foto de perfil de Javier F." class="w-12 h-12 rounded-full mr-4 object-cover" loading="lazy">
+                        <div>
+                            <p class="font-bold">Javier F.</p>
+                            <p class="text-sm text-gray-600">Café de la Plaza</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial Card 4 -->
+                <div class="w-10/12 md:w-1/2 lg:w-1/3 mr-2 bg-[#DFE2D2] p-8 rounded-xl">
+                    <blockquote class="text-md text-gray-800 italic mb-4">
+                        "Me ayudaron a organizar todo mi sistema de clientes. Ahora sé exactamente quién me compra, cuándo y qué productos prefieren. ¡Información que vale oro!"
+                    </blockquote>
+                    <div class="flex items-center">
+                        <img src="https://images.pexels.com/photos/7620843/pexels-photo-7620843.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&dpr=2" alt="Foto de perfil de Sofía R." class="w-12 h-12 rounded-full mr-4 object-cover" loading="lazy">
+                        <div>
+                            <p class="font-bold">Sofía R.</p>
+                            <p class="text-sm text-gray-600">Arte y Deco - Tienda Online</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Componente 5: Sección "CTA Final" -->
+        <section id="diagnostico" class="bg-[#EAECE1] py-16 md:py-24 px-2 md:px-0">
+            <div class="container mx-auto px-2 md:px-6 text-center">
+                <div class="max-w-2xl mx-auto">
+                    <h2 class="text-2xl md:text-3xl mb-4 font-bold">El primer paso para recuperar tu tiempo.</h2>
+                    <p class="text-lg mb-6">Solicitá tu diagnóstico gratuito y sin compromiso. En 30 minutos obtenés:</p>
+                    <ul class="text-left inline-block space-y-3 mb-8">
+                        <li class="flex items-start"><svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><span>La identificación de tu principal "ladrón de tiempo".</span></li>
+                        <li class="flex items-start"><svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><span>Un plan de 3 pasos claros para empezar a eliminarlo.</span></li>
+                    </ul>
+                    <div>
+                        <a href="https://wa.me/5492324533126?text=¡Hola%20Netiza!%20Vi%20su%20web%20y%20me%20gustaría%20solicitar%20mi%20Diagnóstico%20Gratuito." target="_blank" rel="noopener noreferrer" class="inline-block bg-[#DBE21A] text-[#111111] px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform duration-300">Quiero mi diagnóstico gratuito</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Componente 6: Footer -->
+    <footer id="page-footer" class="bg-[#111111] text-white px-2 md:px-0">
+        <div class="container mx-auto px-2 md:px-6 py-12">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+    <div class="h-6">
+        <svg class="h-full w-auto" width="85" height="16" viewBox="0 0 97 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3.56141 17.916V5.22222L11.9915 17.916H15.0809V0.00186467H11.9915V12.6976L3.58623 0.00186467H0.473877V17.916H3.56141Z" fill="white"/>
+            <path d="M36.5466 2.89468H41.7918V17.918H44.9289V2.89468H50.1741V0.00191128H36.5485V2.89468H36.5466ZM32.0633 17.9161V15.0233H24.0743V10.2689H31.2308V7.5002H24.0743V2.89277H32.0633V0H20.9371V17.9142H32.0633V17.9161Z" fill="white"/>
+            <path d="M87.7665 5.34446C87.9383 4.85374 88.0854 4.31528 88.1579 3.97159C88.2076 4.34011 88.3794 4.87856 88.5264 5.34446L90.5848 11.1281H85.7329L87.7665 5.34446ZM83.3538 17.9161L84.7992 13.7745H91.4898L92.9353 17.9161H96.2443L89.7752 0.00191128H86.5655L80.0963 17.9161H83.3557H83.3538ZM76.6403 17.9161V15.0233H67.5725L76.4933 2.79348V0H63.9465V2.89277H72.5981L63.7517 14.9985V17.9142H76.6422L76.6403 17.9161Z" fill="white"/>
+            <path d="M58.2604 0.0762649H55.2703V11.9872H58.2604V0.0762649ZM56.7653 14.3721C55.7858 14.3721 54.9762 15.1683 54.9762 16.1555C54.9762 17.1426 55.7858 17.916 56.7653 17.916C57.7945 17.916 58.6041 17.1446 58.6041 16.1555C58.6041 15.1664 57.7945 14.3721 56.7653 14.3721Z" fill="white"/>
+            <path d="M56.7902 18C57.792 18 58.6041 17.1879 58.6041 16.1861C58.6041 15.1842 57.792 14.3721 56.7902 14.3721C55.7884 14.3721 54.9762 15.1842 54.9762 16.1861C54.9762 17.1879 55.7884 18 56.7902 18Z" fill="#DBE21A"/>
+        </svg>
+    </div>
+    <p class="text-sm text-gray-400 mt-2">Soluciones simples para negocios reales.</p>
+</div>
+                <div class="flex flex-col items-center md:items-end text-center md:text-right mb-6 md:mb-0"><p class="font-bold">Contacto:</p><a href="mailto:hola@netiza.com" class="text-gray-300 hover:text-[#DBE21A]">hola@netiza.com.ar</a><a href="tel:+5492324533126" class="text-gray-300 hover:text-[#DBE21A]">+54 9 2324 533126</a></div>
+                <div class="flex space-x-4">
+                    <a href="#" aria-label="LinkedIn de Netiza" class="text-gray-300 hover:text-[#DBE21A]"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                    <a href="https://www.instagram.com/netiza.ar/" aria-label="Instagram de Netiza" class="text-gray-300 hover:text-[#DBE21A]"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.85s.012-3.584.07-4.85c.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"/></svg></a>
+                </div>
+            </div>
+            <div class="text-center text-gray-500 border-t border-gray-700 mt-8 pt-6 text-sm">&copy; 2025 Netiza. Todos los derechos reservados.</div>
+        </div>
+    </footer>
+
+    <!-- Drawer del Asistente Digital -->
+    <div id="assistantDrawer" class="fixed inset-0 bg-black bg-opacity-50 z-50 opacity-0 pointer-events-none" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+        <!-- Contenido del Drawer -->
+        <div id="drawerContent" class="absolute bottom-0 right-0 h-[80%] md:h-full w-full md:w-1/3 max-w-md bg-white rounded-t-xl md:rounded-t-none md:rounded-l-xl shadow-2xl p-6 flex flex-col">
+            <div class="flex-shrink-0 flex justify-between items-center mb-4">
+                <h3 id="drawerTitle" class="text-lg font-bold">Asistente Digital Netiza</h3>
+                <button id="closeDrawerBtn" class="text-gray-500 hover:text-black" aria-label="Cerrar">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            
+            <div class="flex-grow overflow-y-auto space-y-4">
+                <!-- Paso 1: Bienvenida -->
+                <div id="step1">
+                    <div class="chat-bubble bg-gray-200 p-3 rounded-xl max-w-xs">
+                        <p class="text-sm">👋 ¡Hola! Soy el Asistente Digital de Netiza. Estoy aquí para mostrarte cómo podemos ahorrarte tiempo. Para darte el mejor ejemplo, contame, ¿qué tipo de negocio tenés?</p>
+                    </div>
+                    <div class="mt-4 space-y-2">
+                        <button data-choice="tienda" class="w-full text-left p-3 text-sm bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors">🛍️ Tengo una tienda o vendo productos</button>
+                        <button data-choice="servicios" class="w-full text-left p-3 text-sm bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors">🛎️ Ofrezco servicios (turnos, reservas, etc.)</button>
+                        <button data-choice="profesional" class="w-full text-left p-3 text-sm bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors">💼 Soy profesional independiente</button>
+                    </div>
+                </div>
+
+                <!-- Paso 2: Demos -->
+                <div id="step2" class="hidden">
+                    <!-- Contenido se inyectará aquí -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="sticky-cta-container" class="fixed bottom-0 left-0 w-full p-4 flex justify-center z-40 transition-transform duration-300 transform translate-y-full" style="background: linear-gradient(to top, rgba(241, 243, 231, 1), rgba(241, 243, 231, 0));">
+        <a href="https://wa.me/5492324533126?text=¡Hola%20Netiza!%20Vi%20su%20web%20y%20me%20gustaría%20solicitar%20mi%20Diagnóstico%20Gratuito." target="_blank" rel="noopener noreferrer" class="inline-block bg-[#DBE21A] text-[#111111] px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform duration-300">
+            Quiero mi diagnóstico gratuito
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const openBtn = document.getElementById('openAssistantBtn');
+            const drawer = document.getElementById('assistantDrawer');
+            const drawerContent = document.getElementById('drawerContent');
+            const closeBtn = document.getElementById('closeDrawerBtn');
+            
+            const step1 = document.getElementById('step1');
+            const step2 = document.getElementById('step2');
+
+            const choiceButtons = step1.querySelectorAll('button');
+            const diagnosticoSection = document.getElementById('diagnostico');
+
+            const demos = {
+                tienda: `
+                    <div class="chat-bubble bg-gray-200 p-3 rounded-xl max-w-xs" style="animation-delay: 0.1s;">
+                        <p class="text-sm">¡Genial! Imaginate que un cliente te escribe a las 11 PM preguntando por tus horarios. En vez de que vos respondas, tu Asistente podría hacer esto al instante:</p>
+                    </div>
+                    <div class="mt-4 space-y-2" style="animation-delay: 0.5s; animation-name: pop-in; opacity: 0; animation-fill-mode: forwards;">
+                        <div class="chat-bubble ml-auto bg-blue-500 text-white p-3 rounded-xl max-w-xs">
+                            <p class="text-sm">Hola, ¿hasta qué hora están abiertos mañana?</p>
+                        </div>
+                        <div class="chat-bubble bg-gray-200 p-3 rounded-xl max-w-xs">
+                            <p class="text-sm">¡Hola! Gracias por escribirnos. Mañana abrimos de 9 a 18hs. ¿Te gustaría saber algo más? 😊</p>
+                        </div>
+                    </div>
+                `,
+                servicios: `
+                    <div class="chat-bubble bg-gray-200 p-3 rounded-xl max-w-xs" style="animation-delay: 0.1s;">
+                        <p class="text-sm">¡Perfecto! Un cliente quiere saber si tenés disponibilidad para el próximo sábado. Tu Asistente podría responder así, 24/7:</p>
+                    </div>
+                     <div class="mt-4 space-y-2" style="animation-delay: 0.5s; animation-name: pop-in; opacity: 0; animation-fill-mode: forwards;">
+                        <div class="chat-bubble ml-auto bg-blue-500 text-white p-3 rounded-xl max-w-xs">
+                            <p class="text-sm">Hola, ¿tenés turno para el sábado a la mañana?</p>
+                        </div>
+                        <div class="chat-bubble bg-gray-200 p-3 rounded-xl max-w-xs">
+                            <p class="text-sm">¡Hola! Sí, me queda un lugar disponible a las 10:30hs. ¿Querés que te lo reserve? 😉</p>
+                        </div>
+                    </div>
+                `,
+                profesional: `
+                    <div class="chat-bubble bg-gray-200 p-3 rounded-xl max-w-xs" style="animation-delay: 0.1s;">
+                        <p class="text-sm">¡Entendido! Un potencial cliente pide una cotización. Tu Asistente puede iniciar la conversación para calificarlo:</p>
+                    </div>
+                     <div class="mt-4 space-y-2" style="animation-delay: 0.5s; animation-name: pop-in; opacity: 0; animation-fill-mode: forwards;">
+                        <div class="chat-bubble ml-auto bg-blue-500 text-white p-3 rounded-xl max-w-xs">
+                            <p class="text-sm">Hola, ¿me pasás presupuesto por tus servicios?</p>
+                        </div>
+                        <div class="chat-bubble bg-gray-200 p-3 rounded-xl max-w-xs">
+                            <p class="text-sm">¡Hola! Claro que sí. Para darte un presupuesto exacto, ¿podrías contarme un poco más sobre tu proyecto? ✍️</p>
+                        </div>
+                    </div>
+                `
+            };
+
+            const finalStepHTML = `
+                <div class="chat-bubble bg-gray-200 p-3 rounded-xl max-w-xs" style="animation-delay: 0.1s;">
+                    <p class="text-sm">Esto es solo un pequeño ejemplo de cómo podemos liberarte de las tareas repetitivas.</p>
+                </div>
+                <div class="chat-bubble bg-gray-200 p-3 rounded-xl max-w-xs" style="animation-delay: 0.5s;">
+                    <p class="text-sm">¿Te gustaría un diagnóstico gratuito y personalizado para descubrir el mayor "ladrón de tiempo" de tu negocio?</p>
+                </div>
+                <div class="mt-4" style="animation-delay: 0.8s; animation-name: pop-in; opacity: 0; animation-fill-mode: forwards;">
+                    <button id="finalCtaBtn" class="w-full text-center p-4 bg-green-400 hover:bg-green-500 rounded-xl transition-colors font-bold text-sm">Sí, quiero mi diagnóstico gratuito</button>
+                </div>
+            `;
+
+            function openDrawer() {
+                drawer.classList.add('is-open');
+                closeBtn.focus(); // FIX: Focus the close button for accessibility.
+            }
+
+            function closeDrawer() {
+                drawer.classList.remove('is-open');
+                // Reset to step 1 after closing
+                setTimeout(() => {
+                    step1.classList.remove('hidden');
+                    step2.classList.add('hidden');
+                    step2.innerHTML = '';
+                }, 300);
+            }
+
+            function showFinalStep() {
+                setTimeout(() => {
+                    step2.innerHTML += finalStepHTML;
+                    const finalCtaBtn = document.getElementById('finalCtaBtn');
+                    finalCtaBtn.addEventListener('click', () => {
+                        closeDrawer();
+                        diagnosticoSection.scrollIntoView({ behavior: 'smooth' });
+                    });
+                }, 2000); // Wait 2 seconds after showing the demo
+            }
+            
+            openBtn.addEventListener('click', openDrawer);
+            closeBtn.addEventListener('click', closeDrawer);
+            drawer.addEventListener('click', (e) => {
+                if (e.target === drawer) {
+                    closeDrawer();
+                }
+            });
+
+            choiceButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const choice = button.dataset.choice;
+                    step1.classList.add('hidden');
+                    step2.innerHTML = demos[choice];
+                    step2.classList.remove('hidden');
+                    showFinalStep();
+                });
+            });
+
+            let lastScrollTop = 0;
+            const banner = document.getElementById('top-banner');
+            window.addEventListener('scroll', function() {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                if (scrollTop > lastScrollTop) {
+                    // Downscroll
+                    banner.classList.add('banner-hidden');
+                } else {
+                    // Upscroll
+                    banner.classList.remove('banner-hidden');
+                }
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+            }, false);
+
+            const heroCta = document.getElementById('main-cta-hero');
+            const stickyCtaContainer = document.getElementById('sticky-cta-container');
+            const footer = document.getElementById('page-footer');
+
+            const handleScroll = () => {
+                if (!heroCta || !stickyCtaContainer || !footer) return;
+
+                const heroCtaRect = heroCta.getBoundingClientRect();
+                const footerRect = footer.getBoundingClientRect();
+
+                const isFooterVisible = footerRect.top < window.innerHeight;
+
+                if (heroCtaRect.bottom < 0 && !isFooterVisible) {
+                    stickyCtaContainer.classList.remove('translate-y-full');
+                } else {
+                    stickyCtaContainer.classList.add('translate-y-full');
+                }
+            };
+
+            window.addEventListener('scroll', handleScroll);
+
+        });
+    </script>
+
+</body>
+</html>
